@@ -1,0 +1,67 @@
+local Players = game:GetService("Players")
+local player = Players.LocalPlayer
+
+local gui = Instance.new("ScreenGui")
+gui.Name = "SpeedJumpGUI"
+gui.ResetOnSpawn = false
+gui.Parent = player:WaitForChild("PlayerGui")
+
+local frame = Instance.new("Frame")
+frame.Size = UDim2.new(0, 250, 0, 220)
+frame.Position = UDim2.new(0.5, -125, 0.5, -110)
+frame.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
+frame.Parent = gui
+
+local corner = Instance.new("UICorner")
+corner.CornerRadius = UDim.new(0, 12)
+corner.Parent = frame
+
+local title = Instance.new("TextLabel")
+title.Size = UDim2.new(1, 0, 0, 40)
+title.BackgroundTransparency = 1
+title.Text = "Speed & Jump"
+title.TextColor3 = Color3.new(1, 1, 1)
+title.TextScaled = true
+title.Parent = frame
+
+local speedBox = Instance.new("TextBox")
+speedBox.Size = UDim2.new(0.8, 0, 0, 40)
+speedBox.Position = UDim2.new(0.1, 0, 0, 55)
+speedBox.PlaceholderText = "Speed (16)"
+speedBox.Text = ""
+speedBox.TextScaled = true
+speedBox.Parent = frame
+
+local jumpBox = Instance.new("TextBox")
+jumpBox.Size = UDim2.new(0.8, 0, 0, 40)
+jumpBox.Position = UDim2.new(0.1, 0, 0, 105)
+jumpBox.PlaceholderText = "Jump Power (50)"
+jumpBox.Text = ""
+jumpBox.TextScaled = true
+jumpBox.Parent = frame
+
+local applyButton = Instance.new("TextButton")
+applyButton.Size = UDim2.new(0.8, 0, 0, 40)
+applyButton.Position = UDim2.new(0.1, 0, 0, 160)
+applyButton.Text = "Apply"
+applyButton.TextScaled = true
+applyButton.Parent = frame
+
+applyButton.MouseButton1Click:Connect(function()
+	local character = player.Character
+	if not character then return end
+
+	local humanoid = character:FindFirstChildOfClass("Humanoid")
+	if not humanoid then return end
+
+	local speed = tonumber(speedBox.Text)
+	local jump = tonumber(jumpBox.Text)
+
+	if speed then
+		humanoid.WalkSpeed = speed
+	end
+
+	if jump then
+		humanoid.JumpPower = jump
+	end
+end)
